@@ -1,0 +1,7 @@
+[Unit]
+Description=Hermes Gateway Recovery watchdog
+Documentation=https://github.com/yaoligithub/Hermes-Gateway-Recovery
+
+[Service]
+Type=oneshot
+ExecStart=%h/.local/bin/hermes_gateway_watchdog.py
