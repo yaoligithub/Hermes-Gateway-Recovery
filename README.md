@@ -43,7 +43,7 @@ grep -i "received\|message\|response ready\|sent\|send"   "$HOME_DIR/logs/gatewa
 For profile gateways:
 
 ```bash
-PROFILE=chopin
+PROFILE=<profile>
 SERVICE=hermes-gateway-${PROFILE}.service
 HOME_DIR="$HOME/.hermes/profiles/${PROFILE}"
 ```

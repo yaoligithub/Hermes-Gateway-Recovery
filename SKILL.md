@@ -26,7 +26,7 @@ Use this skill when any of these happen:
 - A gateway bot receives a message but sends no reply.
 - The user asks to restart Hermes gateway, a profile gateway, Telegram bot, or Google Chat bot.
 - `/restart` or `hermes gateway restart` appears to interrupt the final answer.
-- A profile-specific service such as `hermes-gateway-chopin.service` is silent.
+- A profile-specific service such as `hermes-gateway-<profile>.service` is silent.
 - systemd shows the gateway as active, but the platform chat has no response.
 - Logs mention send failures, polling reconnects, cancelled tasks, interrupted sessions, or repeated startup/shutdown cycles.
 
@@ -52,7 +52,7 @@ SERVICE=hermes-gateway.service
 HOME_DIR=/root/.hermes
 
 # Profile gateway example
-PROFILE=chopin
+PROFILE=<profile>
 SERVICE=hermes-gateway-${PROFILE}.service
 HOME_DIR=/root/.hermes/profiles/${PROFILE}
 ```

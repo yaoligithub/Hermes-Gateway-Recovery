@@ -22,7 +22,7 @@ timeout 120 hermes chat -q 'Reply only OK' --toolsets safe --quiet
 Use a profile service when needed:
 
 ```bash
-PROFILE=chopin
+PROFILE=<profile>
 SERVICE=hermes-gateway-${PROFILE}.service
 systemd-run --user --on-active=3s --unit=restart-${SERVICE%.service}-$(date +%s)   systemctl --user restart "$SERVICE"
 timeout 120 hermes --profile "$PROFILE" chat -q 'Reply only OK' --toolsets safe --quiet
