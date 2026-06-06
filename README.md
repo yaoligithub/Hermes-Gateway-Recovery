@@ -83,10 +83,10 @@ systemctl --user enable --now hermes-gateway-watchdog.timer
 Dry-run once:
 
 ```bash
-~/.local/bin/hermes_gateway_watchdog.py --dry-run --verbose
+~/.local/bin/hermes_gateway_watchdog.py
 ```
 
-The watchdog is intentionally quiet when nothing is wrong.
+The watchdog is intentionally quiet when nothing is wrong. It queues restart jobs with `systemctl --user restart --no-block` when `HERMES_WATCHDOG_DIRECT_RESTART=1`, so a slow gateway shutdown or stuck MCP child process does not make the watchdog fail.
 
 ## Long-task checkpoint path
 

@@ -4,4 +4,12 @@ Documentation=https://github.com/yaoligithub/Hermes-Gateway-Recovery
 
 [Service]
 Type=oneshot
+# Queue restarts without blocking on slow gateway shutdowns/MCP child cleanup.
+Environment=HERMES_WATCHDOG_DIRECT_RESTART=1
+# Optional: set these if you want Telegram alerts from a separate/admin bot.
+# Environment=HERMES_WATCHDOG_NOTIFY_TELEGRAM=1
+# Environment=HERMES_WATCHDOG_TELEGRAM_CHAT_ID=<chat-id>
 ExecStart=%h/.local/bin/hermes_gateway_watchdog.py
+Nice=5
+IOSchedulingClass=best-effort
+IOSchedulingPriority=7

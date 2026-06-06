@@ -217,9 +217,12 @@ Minimum watchdog rules:
 
 1. Restart immediately if a gateway service is inactive/failed.
 2. Restart active-but-silent gateways only if there is an inbound message newer than the last outbound send and the gap is older than the threshold.
-3. Rate-limit restarts per service, for example no more than once every 10 minutes.
-4. Exclude the watchdog's own service from scans.
-5. Keep the script quiet when nothing is wrong, so timer/cron output does not spam logs or chats.
+3. Do not keep treating an old unanswered inbound as stuck after the gateway has restarted/reconnected. Track `Starting Hermes Gateway`, `Connected to Telegram`, or `Gateway running with...`; if that timestamp is newer than the last unanswered inbound, consider the old message already handled by the restart and stay quiet until a new inbound arrives.
+4. Do not call blocking `systemctl --user restart <unit>` from the watchdog. It can hang until the gateway's full stop timeout if MCP/tool child processes are slow to die, causing the watchdog itself to fail. Use `systemctl --user restart --no-block <unit>` or schedule a transient `systemd-run --user --on-active=... systemctl --user restart <unit>` job.
+5. Catch `subprocess.TimeoutExpired`/restart command failures so one bad service does not crash the entire watchdog scan.
+6. Rate-limit restarts per service, for example no more than once every 10 minutes.
+7. Exclude the watchdog's own service from scans.
+8. Keep the script quiet when nothing is wrong, so timer/cron output does not spam logs or chats.
 
 ## Long-task checkpoint pattern
 
